@@ -3,19 +3,20 @@
 int main()
 {
     // 1
-    int n, sum = 0, maxi = INT_MIN, numb = 0, i = 1;
+    int n, sum = 0, maxi = INT_MIN, numb = 0;
     std::cin >> n;
-    while(n != 0) {
-        
-        if (n < 0 and n % 7 == 0) {
-            sum = sum + n;
-            if (maxi < n) {
-                maxi = n;
+    for (int i = 0; i < n; i++) {
+        int x;
+        std::cin >> x;
+        if (x < 0 and x % 7 == 0) {
+            sum = sum + x;
+            if (maxi < x) {
+                maxi = x;
                 numb = i;
             }
         }
-        i++;
-        std::cin >> n;
+        
+        
     }
     std::cout << "sum = " << sum  << " " << "max = " << maxi << " " << "number is " << numb << std::endl;
     
