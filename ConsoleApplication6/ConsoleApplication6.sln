@@ -3,7 +3,7 @@
 int main()
 {
     // 1
-    int n, sum = 0, maxi = -10000, numb = 0, i = 1;
+    int n, sum = 0, maxi = INT_MIN, numb = 0, i = 1;
     std::cin >> n;
     while(n != 0) {
         
