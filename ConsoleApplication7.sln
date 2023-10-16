@@ -1,31 +1,237 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34024.191
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication7", "ConsoleApplication7\ConsoleApplication7.vcxproj", "{0B883258-BB02-46B7-912B-8F7048ED3DAE}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Debug|x64.ActiveCfg = Debug|x64
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Debug|x64.Build.0 = Debug|x64
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Debug|x86.ActiveCfg = Debug|Win32
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Debug|x86.Build.0 = Debug|Win32
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Release|x64.ActiveCfg = Release|x64
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Release|x64.Build.0 = Release|x64
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Release|x86.ActiveCfg = Release|Win32
-		{0B883258-BB02-46B7-912B-8F7048ED3DAE}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D1CA42B8-9C40-4663-BC97-C24F0E20D433}
-	EndGlobalSection
-EndGlobal
+#include <iostream>
+
+int main()
+{
+    
+    // 1
+    
+    int n;
+    std::cin >> n;
+    int mas[10000];
+
+    int k = 2;
+    int flag = 0;
+
+    //вводим массив
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> mas[i];
+    }
+    //проверка наличия простых чисел
+    for (int i = 0; i < n; i++) {
+        int count = 0;
+        while (k * k <= mas[i]) {
+            if (mas[i] % k == 0) {
+                count++;
+            }
+            k++;
+            if (count == 0) {
+                flag = 1;
+            }
+        }
+        k = 2;
+        if (mas[i] == 2 or mas[i] == 3) {
+            flag++;
+        }
+    }
+    // если простых чисел нет, то упорядочиваем последовательность
+    if (flag == 0)
+    {
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j < n; j++)
+                if (mas[i] > mas[j])
+                {
+                    int tmp = mas[i];
+                    mas[i] = mas[j];
+                    mas[j] = tmp;
+                }
+    }
+    // вывод массива
+    for (int i = 0; i < n; i++)
+    {
+        std::cout << mas[i] << " ";
+
+    }
+    
+    // 2
+    
+    int n;
+    std::cin >> n;
+    int mas[10000];
+    // вводим массив
+    for (int i = 0; i < n; i++) {
+        std::cin >> mas[i];
+    }
+    // сортировка
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            int a = 0;
+            int b = 0;
+            int prom;
+            int promi = mas[i];
+            int promj = mas[j];
+            while (promi > 0) {
+                prom = promi % 10;
+                a = a + prom;
+                promi = promi / 10;
+            }
+            while (promj > 0) {
+                prom = promj % 10;
+                b = b + prom;
+                promj = promj / 10;
+            }
+            // сортировка по 1 условию
+            if (b < a) {
+                int tmp = mas[i];
+                mas[i] = mas[j];
+                mas[j] = tmp;
+            }
+            else if (b == a) {
+                int m = 1;
+                int n = 1;
+                int prome;
+                int promei = mas[i];
+                int promej = mas[j];
+                while (promei > 0) {
+                    prome = promei % 10;
+                    m = m * prome;
+                    promei = promei / 10;
+                }
+                while (promej > 0) {
+                    prome = promej % 10;
+                    n = n * prome;
+                    promej = promej / 10;
+                }
+                // сортировка по 2 условию
+                if (n < m) {
+                    int tmp = mas[i];
+                    mas[i] = mas[j];
+                    mas[j] = tmp;
+                }
+                // сортировка по третьему условию
+                else if (n = m) {
+                    if (mas[j] < mas[i]) {
+                        int tmp = mas[i];
+                        mas[i] = mas[j];
+                        mas[j] = tmp;
+                    }
+                }
+            }
+        }
+    }
+    // вывод массива
+    for (int i = 0; i < n; i++)
+    {
+        std::cout << mas[i] << " ";
+    }
+    
+    
+    // 3
+    
+    int n;
+    int m;
+    std::cin >> n >> m;
+    int matrixA[100][100];
+    // ввод матрицы
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            std::cin >> matrixA[i][j];
+        }
+    }
+
+    int mas[100];
+    int num;
+    int maxsn = INT_MIN;
+    //перебираем все произведения и находим наибольшее, сохраняем его строчку
+    for (int i = 0; i < n; i++) {
+        int elem;
+        int pros = 1;
+        for (int j = 0; j < n; j++) {
+            elem = matrixA[i][j];
+            pros = pros * elem;
+        }
+        if (pros > maxsn) {
+            maxsn = pros;
+            num = i;
+        }
+    }
+    // заменяем строчку согласно условию
+    for (int j = 0; j < n; j++) {
+        matrixA[num][j] = maxsn;
+    }
+    //вывод матрицы
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            std::cout << matrixA[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+    // 4
+    int n;
+    int k = 2;
+    int flag = 0;
+    std::cin >> n;
+    int mas[10000];
+    //вводим массив
+    for (int i = 0; i < n; i++) {
+       std::cin >> mas[i];
+    }
+    
+    // удаляем простые числа
+    for (int i = 0; i < n; i++) {
+        int count = 0;
+        while (k * k <= mas[i]) {
+            if (mas[i] % k == 0) {
+                count++;
+            }
+            k++;
+            if (count == 0) {
+                flag = 1;
+            }
+        }
+        k = 2;
+        if (mas[i] == 2 or mas[i] == 3) {
+            flag++;
+        }
+        if (flag == 1) {
+            for (int j = i; j < n-1; j++) {
+                mas[j] = mas[j + 1];
+            }
+            n--;
+            i--;
+        }
+        flag = 0;
+    }
+    // дублируем числа равные кубу целого числа
+    int i = 0;
+    flag = 0;
+    while (i < n) {
+        // проверяем является ли число кубом целого числа
+        
+        int j = 0;
+        while (j * j * j <= mas[i]) {
+            if (j * j * j == mas[i]) {
+                flag = 1;
+            }
+            j++;
+        }
+        if (flag == 1) {
+            for (int k = n; k > i; k--) {
+                mas[k] = mas[k - 1];
+                i++;
+                n++;
+            }
+        }
+        i++;
+        flag = 0;
+    }
+    
+    // вывод массива
+    for (int i = 0; i < n; i++)
+    {
+        std::cout << mas[i] << " ";
+
+    }
+    return 0;
+}
