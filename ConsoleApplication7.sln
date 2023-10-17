@@ -172,7 +172,7 @@ int main()
     int k = 2;
     int flag = 0;
     std::cin >> n;
-    int mas[10000];
+    int mas[20000];
     //вводим массив
     for (int i = 0; i < n; i++) {
        std::cin >> mas[i];
