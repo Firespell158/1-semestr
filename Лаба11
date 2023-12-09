@@ -57,8 +57,7 @@ int main()
         std::cout << mas[i] << " ";
 
     }
-
-
+    //удаление массива
     delete[] mas;
     */
     //2
@@ -106,4 +105,9 @@ int main()
         }
         std::cout << std::endl;
     }
+    //удаление матрицы
+    for (int i = 0; i < n; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
 }
